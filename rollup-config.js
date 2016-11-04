@@ -1,9 +1,10 @@
 var nodeResolve = require('rollup-plugin-node-resolve');
+var nodePath = require("path");
 
 class RollupNG2 {
   resolveId(id, from) {
     if (id.startsWith('rxjs/')) {
-      return `${__dirname}/node_modules/rxjs-es/${id.replace('rxjs/', '')}.js`;
+      return nodePath.resolve(`${__dirname}/node_modules/rxjs-es/${id.replace('rxjs/', '')}.js`);
     }
     return undefined;
   }
