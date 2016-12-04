@@ -1,24 +1,23 @@
-var nodeResolve = require('rollup-plugin-node-resolve');
 var nodePath = require("path");
 
-class RollupNG2 {
+class MyPlugin {
   resolveId(id, from) {
-    if (id.startsWith('rxjs/')) {
-      return nodePath.resolve(`${__dirname}/node_modules/rxjs-es/${id.replace('rxjs/', '')}.js`);
+    if (id.startsWith('somelib/')) {
+	  // Buggy
+	  return `${__dirname}/somelib/${id.replace('somelib/', '')}.js`;
+      // Working
+	  //return nodePath.resolve(`${__dirname}/somelib/${id.replace('somelib/', '')}.js`);
     }
     return undefined;
   }
 }
 
-const rollupNG2 = () => new RollupNG2();
+const myPlugin = () => new MyPlugin();
 
 module.exports = {
   treeshake: true,
   format: 'iife',
   plugins: [
-    rollupNG2(),
-    nodeResolve({
-      jsnext: true, main: true, module: true
-    })
+    myPlugin()
   ]
 };

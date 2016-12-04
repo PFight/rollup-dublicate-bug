@@ -1,5 +1,7 @@
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/delay';
+import { SomeDep } from "somelib/SomeDep";
+import 'somelib/subdir/AnotherDep';
 
-var ob = new Observable();
-ob.delay();
+var x = new SomeDep();
+x.foo();
+var x2 = new AnotherDep();
+x2.foo();
